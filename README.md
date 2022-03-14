@@ -1,5 +1,5 @@
 # Webhook API
-This is a simply webhook API to test signature validation on your server.
+This is a simple webhook api example to test signature validation for implementing webhook endpoints on your server.
 
 ## Dependencies
 This package requires node version >=16.
