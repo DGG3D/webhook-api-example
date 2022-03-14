@@ -15,7 +15,7 @@ app.post("/", (req, res) => {
   const signature = req.headers.signature
   const secret = 'secret'
   const bodyString = JSON.stringify(req.body)
-  const bodyEscaped = bodyString.replaceAll('/', '\\/')
+  const bodyEscaped = bodyString.replaceAll('/', '\\/') // necessary, depending on if your webhook sender is escaping '/' before signing request
 
   const calculatedSignature = crypto
         .createHmac("sha256", secret)
