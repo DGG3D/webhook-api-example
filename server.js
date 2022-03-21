@@ -13,19 +13,25 @@ app.listen(8080, () => {
 
 app.post("/", (req, res) => {
   const signature = req.headers.signature
-  const secret = 'secret'
+  
+  // This is the secret you entered when adding the webhook on RapidCompact.
+  const secret = 'secret' 
+  
   const bodyString = JSON.stringify(req.body)
-  const bodyEscaped = bodyString.replaceAll('/', '\\/') // necessary, depending on if your webhook sender is escaping '/' before signing request
+  
+  // NOTE: This is necessary, as our webhook server is escaping `/` before signing the request.
+  const bodyEscaped = bodyString.replaceAll('/', '\\/') 
 
+  // Calculate the HMAC signature using SHA256 and the given secret.
   const calculatedSignature = crypto
         .createHmac("sha256", secret)
         .update(bodyEscaped)
         .digest("hex")
 
-  console.log('signature', signature)
-  console.log('calculated signature', calculatedSignature)
-
+  // Check if the signature is valid.
   const valid = signature == calculatedSignature
-  console.log('valid', valid)
+  console.log('signature valid:', valid)
+  
+  // Here you can respond differently depending on if the signature is valid or not.
   res.sendStatus(200)
 });
