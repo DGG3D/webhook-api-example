@@ -18,6 +18,7 @@ app.post("/", (req, res) => {
   const secret = 'secret' 
   
   const bodyString = JSON.stringify(req.body)
+  console.log(bodyString)
   
   // NOTE: This is necessary, as our webhook server is escaping `/` before signing the request.
   const bodyEscaped = bodyString.replaceAll('/', '\\/') 
